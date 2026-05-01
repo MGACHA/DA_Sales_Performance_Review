@@ -24,7 +24,8 @@ JOIN warehouse.DIM_Date d ON f.Date_Key = d.Date_Key -- Join to date dimension.
 GROUP BY d.Date_Key; -- Aggregate per day.
 
 -- 6.3 Sales Rep Performance
-CREATE VIEW reporting.V_Rep_Performance AS
+-- 6.3 Sales Rep Performance
+CREATE OR ALTER VIEW reporting.V_Rep_Performance AS
 SELECT
     r.Sales_Rep_ID, -- Sales rep key.
     r.Sales_Rep_Name, -- Sales rep name.
@@ -33,12 +34,12 @@ SELECT
     r.Years_Of_Service, -- Rep tenure.
     r.Is_On_Probation_Flag, -- Probation flag (bit).
     COUNT(DISTINCT f.Sales_ID) AS Orders, -- Orders by rep.
-    SUM(f.Quantity) AS Units, -- Units by rep.
-    SUM(f.Revenue_GBP) AS Revenue, -- Revenue by rep.
-    CAST(SUM(f.Revenue_GBP) / NULLIF(COUNT(DISTINCT f.Sales_ID), 0) AS DECIMAL(18, 2)) AS AOV, -- AOV by rep.
-    CAST(SUM(CASE WHEN f.Has_Promotion_Flag = 1 THEN f.Revenue_GBP ELSE 0 END) AS DECIMAL(18, 2)) AS Promo_Revenue -- Promo-attributed revenue.
-FROM warehouse.FACT_Sales f -- Fact source.
-JOIN warehouse.DIM_Sales_Rep r ON f.Sales_Rep_ID = r.Sales_Rep_ID -- Join rep dimension.
+    COALESCE(SUM(f.Quantity), 0) AS Units, -- Units by rep (0 for reps with no sales).
+    COALESCE(SUM(f.Revenue_GBP), 0) AS Revenue, -- Revenue by rep (0 for reps with no sales).
+    COALESCE(CAST(SUM(f.Revenue_GBP) / NULLIF(COUNT(DISTINCT f.Sales_ID), 0) AS DECIMAL(18, 2)), 0) AS AOV, -- AOV by rep.
+    COALESCE(CAST(SUM(CASE WHEN f.Has_Promotion_Flag = 1 THEN f.Revenue_GBP ELSE 0 END) AS DECIMAL(18, 2)), 0) AS Promo_Revenue -- Promo-attributed revenue.
+FROM warehouse.DIM_Sales_Rep r -- Base on rep dimension so zero-sales reps remain visible.
+LEFT JOIN warehouse.FACT_Sales f ON f.Sales_Rep_ID = r.Sales_Rep_ID -- Join matching sales rows when present.
 GROUP BY r.Sales_Rep_ID, r.Sales_Rep_Name, r.Manager_Name, r.Is_On_Probation_Code,
          r.Years_Of_Service, r.Is_On_Probation_Flag; -- Aggregate per rep.
 
