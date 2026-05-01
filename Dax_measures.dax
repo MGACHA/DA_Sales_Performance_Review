@@ -1,10 +1,10 @@
 -- DAX measures for reporting V_Executive_KPI table
-
+-- Executive cards (from V_Executive_KPI, single-row table)
 KPI Total Revenue = MAX('reporting V_Executive_KPI'[Total_Revenue])
 KPI Total Orders = MAX('reporting V_Executive_KPI'[Total_Orders])
 KPI Total Units = MAX('reporting V_Executive_KPI'[Total_Units])
 KPI AOV = MAX('reporting V_Executive_KPI'[Avg_Order_Value])
-KPI Promo Usage % = MAX('reporting V_Executive_KPI'[Promo_Usage_Percentage])
+KPI Promo Usage % = DIVIDE(MAX('reporting V_Executive_KPI'[Promo_Usage_Percentage]), 100)
 KPI Revenue Per Unit = MAX('reporting V_Executive_KPI'[Revenue_Per_Unit])
 
 -- Set format:
@@ -14,3 +14,32 @@ KPI Total Units: Whole number
 KPI AOV: Currency (GBP), 2 decimals
 KPI Promo Usage %: Percentage, 2 decimals
 KPI Revenue Per Unit: Currency (GBP), 4 decimals
+
+
+-- Daily trend helpers
+Daily Revenue = SUM('reporting V_Daily_Trend'[Revenue])
+Daily Orders = SUM('reporting V_Daily_Trend'[Orders])
+Daily Units = SUM('reporting V_Daily_Trend'[Units])
+Daily AOV = AVERAGE('reporting V_Daily_Trend'[AOV])
+
+
+-- Rep page helpers
+Rep Revenue = SUM('reporting.V_Rep_Performance'[Revenue])
+Rep Orders = SUM('reporting.V_Rep_Performance'[Orders])
+Rep AOV = AVERAGE('reporting.V_Rep_Performance'[AOV])
+Rep Promo Revenue = SUM('reporting.V_Rep_Performance'[Promo_Revenue])
+
+-- Promo comparison helpers
+Promo Revenue =
+CALCULATE(
+    SUM('reporting.V_Promo_vs_NoPromo'[Revenue]),
+    'reporting.V_Promo_vs_NoPromo'[Promo_Flag] = "Promo"
+)
+
+No Promo Revenue =
+CALCULATE(
+    SUM('reporting.V_Promo_vs_NoPromo'[Revenue]),
+    'reporting.V_Promo_vs_NoPromo'[Promo_Flag] = "No Promo"
+)
+
+Promo Revenue Lift % = DIVIDE([Promo Revenue] - [No Promo Revenue], [No Promo Revenue])
