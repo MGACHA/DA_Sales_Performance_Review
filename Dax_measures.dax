@@ -1,0 +1,16 @@
+-- DAX measures for reporting V_Executive_KPI table
+
+KPI Total Revenue = MAX('reporting V_Executive_KPI'[Total_Revenue])
+KPI Total Orders = MAX('reporting V_Executive_KPI'[Total_Orders])
+KPI Total Units = MAX('reporting V_Executive_KPI'[Total_Units])
+KPI AOV = MAX('reporting V_Executive_KPI'[Avg_Order_Value])
+KPI Promo Usage % = MAX('reporting V_Executive_KPI'[Promo_Usage_Percentage])
+KPI Revenue Per Unit = MAX('reporting V_Executive_KPI'[Revenue_Per_Unit])
+
+-- Set format:
+KPI Total Revenue: Currency (GBP), 2 decimals
+KPI Total Orders: Whole number
+KPI Total Units: Whole number
+KPI AOV: Currency (GBP), 2 decimals
+KPI Promo Usage %: Percentage, 2 decimals
+KPI Revenue Per Unit: Currency (GBP), 4 decimals
