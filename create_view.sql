@@ -225,3 +225,52 @@ GROUP BY
     r.Manager_Name,
     c.Customer_Type,
     rg.Region_Name; -- Grain: rep + customer type + region.
+
+-- 6.14 Promo_Analysis_Combined (for who: customer type and region)
+CREATE OR ALTER VIEW reporting.V_Promo_Analysis_Combined AS
+WITH base AS (
+    SELECT
+        CASE
+            WHEN f.Has_Promotion_Flag = 1 THEN 'Promo'
+            ELSE 'No Promo'
+        END AS Promo_Flag,
+        sr.Sales_Rep_Name,
+        c.Customer_Type,
+        rg.Region_Name,
+        CAST(COALESCE(p.Discount_Percentage, 0) AS DECIMAL(5, 2)) AS Discount_Percentage,
+        CASE
+            WHEN f.Has_Promotion_Flag = 0 OR f.Promotion_ID IS NULL THEN 'No Promotion'
+            ELSE COALESCE(p.Promotion_Status, 'Unknown')
+        END AS Promo_Status,
+        f.Sales_ID,
+        f.Quantity,
+        f.Revenue_GBP
+    FROM warehouse.FACT_Sales f
+    JOIN warehouse.DIM_Sales_Rep sr
+        ON f.Sales_Rep_ID = sr.Sales_Rep_ID
+    JOIN warehouse.DIM_Customer c
+        ON f.Customer_ID = c.Customer_ID
+    JOIN warehouse.DIM_Region rg
+        ON c.Region_ID = rg.Region_ID
+    LEFT JOIN warehouse.DIM_Promotion p
+        ON f.Promotion_ID = p.Promotion_ID
+)
+SELECT
+    Promo_Flag,
+    Sales_Rep_Name,
+    Customer_Type,
+    Region_Name,
+    Discount_Percentage,
+    Promo_Status,
+    COUNT(DISTINCT Sales_ID) AS Orders,
+    SUM(Quantity) AS Units,
+    SUM(Revenue_GBP) AS Revenue
+FROM base
+GROUP BY
+    Promo_Flag,
+    Sales_Rep_Name,
+    Customer_Type,
+    Region_Name,
+    Discount_Percentage,
+    Promo_Status;
+GO
