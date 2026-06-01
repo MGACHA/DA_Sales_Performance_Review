@@ -52,8 +52,8 @@ This keeps the model simpler and reduces the risk of inconsistent KPI definition
 - Separate the xlsx file into a csv file using the [export](Python/export_excel_to_csv.py) script, 
 - Load the tables into the SQL Server database
 - Created staging tables for "original" data, in script [Staging](SQL/Staging_tables.sql)
-- Created warehouse tables for cleaned data [DIM](SQL/DIM_tables.sql), [FACT](SQL/Fact_tables.sql)
-- Created views [script](SQL/create_views.sql)
+- Created warehouse tables for cleaned data [DIM](SQL/DIM_tables.sql), [FACT](SQL/Fact_table.sql)
+- Created views [script](SQL/create_view.sql)
 
 ## Step 2 - Method 
 - I cleaned and validated IDs, nulls, and joins.
