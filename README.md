@@ -1,5 +1,5 @@
 # DA_Sales_Performance_Review
-Data Analysis of Sales Performance Review
+[Data Analysis of Sales Performance Review](DA-data.xlsx)
 ## What dataset contains
 Main fact table:
 - Sales_Data(Date, Sales_ID, Sales_Rep_ID, Customer_ID, Quantity, Value, Promotion_ID)
@@ -46,9 +46,10 @@ This keeps the model simpler and reduces the risk of inconsistent KPI definition
 
 
 ## Step 1
-- Separate the xlsx file into a csv file using the export_excel_to_csv.py script, 
+- Separate the xlsx file into a csv file using the [export](export_excel_to_csv.py) script, 
 - Load the tables into the SQL Server database
-- Created staging tables for "original" data and warehouse tables for cleaned data.
+- Created staging tables for "original" data, in script [Stagig](Staging_tables.sql)
+- Created warehouse tables for cleaned data [DIM](DIM_tables.sql), [FACT](Fact_tables.sql)
 - Created views script create_views.sql
 
 ## Step 2 - Method 
