@@ -1,4 +1,7 @@
 # DA_Sales_Performance_Review
+
+## [Presentation](Sales_performance_Bard_Presentation.pdf)
+
 [Data Analysis of Sales Performance Review](DA-data.xlsx)
 ## What dataset contains
 Main fact table:
@@ -48,7 +51,7 @@ This keeps the model simpler and reduces the risk of inconsistent KPI definition
 ## Step 1
 - Separate the xlsx file into a csv file using the [export](export_excel_to_csv.py) script, 
 - Load the tables into the SQL Server database
-- Created staging tables for "original" data, in script [Stagig](Staging_tables.sql)
+- Created staging tables for "original" data, in script [Staging](Staging_tables.sql)
 - Created warehouse tables for cleaned data [DIM](DIM_tables.sql), [FACT](Fact_tables.sql)
 - Created views script create_views.sql
 
@@ -64,4 +67,5 @@ This keeps the model simpler and reduces the risk of inconsistent KPI definition
 - Customer mix: Shop segment is the largest revenue contributor.
 - Promotions: improve basket size (AOV) but reduce value per unit.
 - Data quality risk: inconsistent region naming impacts reporting.
+
 
