@@ -1,0 +1,135 @@
+1. Executive Snapshot
+In the last 7 days, the business processed 213 orders, generating £95.82K in revenue and selling 1,086 units. The average order value was £449.84, and roughly 1 in 4 orders used a promotion.
+One day stands out - 29 April alone accounted for 102 orders and £47K, nearly half the week's total. That could be a bulk order, a campaign, or end-of-month buying. It needs to be looked into before we treat it as a normal trading day.
+Overall the business is generating solid volume in a short window, with promotions used selectively rather than across the universally.
+Takeaway: stable topline performance, with promotions as a targeted lever — not a dependency.
+
+
+213 orders | GBP 95.82K revenue | 1,086 units sold
+Average Order Value: GBP 449.84
+Promotion Usage: 23.94% (51 of 213 orders)
+Revenue per Unit: GBP 88.23
+Peak day: 29 Apr — £47K revenue, 102 orders (49% of weekly total in one day)
+
+2. 
+“Revenue is concentrated in two regions: UK at about GBP 62K and US at about GBP 28K, with France smaller at about GBP 6K.
+Customer mix is also concentrated: Shops contribute GBP 50.24K (52.43%), Online Retailers GBP 24.62K (25.69%), Wholesalers GBP 14.28K (14.9%), and Business GBP 6.69K (6.98%).
+This means performance is strong, but we are exposed to concentration risk in both geography and customer segment.”
+Business implication: if UK demand drops, or if Shops buy less, total revenue will fall quickly.
+Recommendation: protect the strong segments (UK and Shops), and grow smaller segments with targeted offers.
+
+Revenue is concentrated in United Kingdom and US
+Customer mix is led by Shops, then Online Retailers
+Strong current performance but concentration risk remains
+Action: protect core segments and grow under-penetrated groups
+
+3. Rep performance is very different across the team.
+Sekhar is the top performer with about £30K. Kay is next with about £24K. Samit and Sarbani are in the middle and close to each other. Amy has £0 and is currently on probation.
+This shows a big gap between top and low performers. This is something the business can improve internally.
+
+We currently depend too much on a few strong reps, and team capability is uneven.
+Recommendations:
+Ask managers to copy what top reps do well (pipeline discipline, better deal quality, strong account routines).
+Put probation and low-performing reps on a 30-day recovery plan with weekly check-ins.
+Track each rep with simple KPIs: Orders, Revenue, Average Order Value, and Promo Revenue.
+
+4. Promotion Effectiveness
+“Promotions generated 51 orders and GBP 25.86K in revenue.
+By discount level, 5% contributed the most promo revenue (GBP 12.33K), then 10% (GBP 9.45K), then 15% (GBP 4.08K).
+Average order value appears higher under promoted transactions in this period, which means promotions are helping basket size.
+At the same time, promotions are still a discount mechanism, so we must control margin quality, not only volume.”
+Business implication: promotions are working commercially, but discount intensity must be governed.
+Recommendations:
+Prioritize 5% and 10% tiers; restrict 15% to clear strategic cases.
+Add approval guardrails for higher discounts.
+Run controlled tests by rep/region to optimize discount vs volume response.
+
+
+
+Promotions contributed 51 orders and GBP 25.86K revenue
+5% and 10% discount tiers outperform 15% on value
+Promotions support volume but need discount discipline
+Action: prioritize lower discount tiers with approval guardrails
+
+
+Slide 5 - Decision Summary
+"My recommendation is a three-part plan:
+Defend and grow core revenue pools in the UK and Shop/Online segments.
+Improve rep consistency through manager-led coaching and a weekly performance cadence.
+Optimize promotions toward lower discount tiers, with tighter controls on higher discounts.
+
+## Good closing line
+"This dataset gives us a useful short-window diagnostic. With a broader history, we can strengthen trend reliability and move from descriptive analytics to predictive planning."
+
+
+
+Approach
+
+I approached this task in four steps.
+
+First, I reviewed the raw sales data and checked the main fields, such as dates, regions, customers, promotions, and sales reps.
+
+Second, I cleaned and structured the data in SQL so I could create consistent reporting views.
+
+Third, I used those reporting views in Power BI to build focused dashboard pages for executive KPIs, sales rep performance, promotion effectiveness, and data quality.
+
+Finally, I used the outputs to build a short business narrative with practical recommendations, rather than only showing charts.
+
+
+
+
+Build choises and why
+
+A key design choice was to keep most of the transformation work in SQL and keep Power BI focused on visuals and lightweight measures.
+
+I chose this approach because it makes the business logic easier to control, easier to explain, and easier to reuse.
+
+I also used reporting views as a semantic layer. That means each dashboard page reads from a prepared view, instead of rebuilding the logic again inside Power BI.
+
+This keeps the model simpler and reduces the risk of inconsistent KPI definitions.
+
+
+
+
+Key assumptions
+
+I made a few practical assumptions to complete the analysis.
+
+First, I treated the available dataset as a valid short-term snapshot of sales activity from 24 to 30 April 2026.
+
+Second, I assumed revenue is the main performance measure, because cost and margin data were not available.
+
+Third, I assumed promotion effectiveness could be assessed through revenue, order volume, average order value, and revenue per unit.
+
+Finally, I assumed that a one-week window is enough for a diagnostic view, but not enough for strong trend conclusions.
+
+
+
+
+Data challenges and limitations
+
+There were several data challenges during the work.
+
+The first was date handling. The date key needed to be converted into a proper date format before it could be used correctly in Power BI visuals.
+
+The second was model design. Because I used multiple reporting views, I had to be careful not to create incorrect relationships between aggregated tables.
+
+The third was the date 29 April shows a very large revenue spike, but with only one week of data, I cannot say with confidence whether that is normal seasonality, a campaign effect, or a one-off event.
+
+The main limitations are the short time window, the lack of cost or margin data, and the absence of broader historical context.
+
+I included data quality checks in the analysis because decision-makers need to know not only what the numbers say, but also how much trust to place in them.
+
+
+
+what i would do next
+With more time and more data, I would extend this in four ways.
+
+First, I would load a longer history so I could test whether patterns such as the 29 April spike are repeatable or exceptional.
+
+Second, I would add cost and margin data so promotion analysis could focus on profit , not only revenue.
+
+Third, I would rebuild the Power BI model on fact and dimension tables if cross-page filtering and deeper drill analysis were required.
+
+Fourth, I would automate a weekly performance pack so leaders can track changes consistently over time.
+
