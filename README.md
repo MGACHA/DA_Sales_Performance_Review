@@ -1,8 +1,8 @@
 # DA_Sales_Performance_Review
 
-## [Presentation](Sales_performance_Bard_Presentation.pdf)
+## [Presentation](PowerPoint/Sales_Performance_Board_Presentation.pdf)
 
-[Data Analysis of Sales Performance Review](DA-data.xlsx)
+[Data Analysis of Sales Performance Review](Data/DA-data.xlsx)
 ## What dataset contains
 Main fact table:
 - Sales_Data(Date, Sales_ID, Sales_Rep_ID, Customer_ID, Quantity, Value, Promotion_ID)
@@ -49,11 +49,11 @@ This keeps the model simpler and reduces the risk of inconsistent KPI definition
 
 
 ## Step 1
-- Separate the xlsx file into a csv file using the [export](export_excel_to_csv.py) script, 
+- Separate the xlsx file into a csv file using the [export](Python/export_excel_to_csv.py) script, 
 - Load the tables into the SQL Server database
-- Created staging tables for "original" data, in script [Staging](Staging_tables.sql)
-- Created warehouse tables for cleaned data [DIM](DIM_tables.sql), [FACT](Fact_tables.sql)
-- Created views script create_views.sql
+- Created staging tables for "original" data, in script [Staging](SQL/Staging_tables.sql)
+- Created warehouse tables for cleaned data [DIM](SQL/DIM_tables.sql), [FACT](SQL/Fact_tables.sql)
+- Created views [script](SQL/create_views.sql)
 
 ## Step 2 - Method 
 - I cleaned and validated IDs, nulls, and joins.
