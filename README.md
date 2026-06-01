@@ -3,6 +3,7 @@ Data Analysis of Sales Performance Review
 ## What dataset contains
 Main fact table:
 - Sales_Data(Date, Sales_ID, Sales_Rep_ID, Customer_ID, Quantity, Value, Promotion_ID)
+
 Dimension tables:
 - Promotion(Promotion_ID, Reduction)
 - Sales_Rep(Sales_Rep_ID, Sales_Rep_Name, Manager_Name, Years_Of_Service, Is_On_Probation)
